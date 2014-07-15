@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPivot</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="d3/d3.min.js" ></script>
+
+</head>
+
+<body> 
+	<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+	
+
+
+	
+
+	<h3>Scatter Plot</h3>
+	<script>
+
+
+		//VARIABLES FOR OUR DATA ANALYSIS
+
+		var h = 350;
+		var w = 400;
+	
+		var monthlySales =[
+          {"month":10, "sales":100},
+          {"month":20, "sales":130},
+          {"month":30, "sales":250},
+          {"month":40, "sales":300},
+          {"month":50, "sales":265},
+          {"month":60, "sales":225},
+          {"month":70, "sales":180},
+          {"month":80, "sales":120},
+          {"month":90, "sales":145},
+          {"month":100, "sales":130}
+          
+        ];
+
+
+
+//KPI TO COLOUR DOTS
+function salesKPI(d){
+	if(d>=250){return "#33CC66"; }else
+	if (d<250){return "#666666"; }
+}
+
+//BUILDING MIN & MAX LABEL AND "ALL" LABEL FUNCTION
+function showMinMax(ds, col, val, type){
+	var max = d3.max(ds, function(d){return d[col]; } );
+	var min =d3.min(ds, function(d){return d[col]; } );
+
+	if(type=='minmax' && (val ==max || val == min)){
+		return val;
+	}else if(type=='all'){
+			return val;		
+	}
+
+}
+
+
+
+//CREATING SVG           
+var svg = d3.select("body").append("svg").attr({width:w, height:h});
+ 
+
+
+//ADDING DOTS
+var dots = svg.selectAll("circle")
+	.data(monthlySales)
+	.enter()
+	.append("circle")
+	.attr({
+		cx: function(d){ return d.month*3; },
+		cy: function(d){ return h-d.sales; },
+		 r: 5,
+    "fill": function(d){return salesKPI(d.sales); }
+	});
+
+
+//ADDING LABELS
+var labels = svg.selectAll("text")
+		.data(monthlySales)
+		.enter()
+		.append("text")
+	   .text(function(d){return showMinMax(monthlySales,'sales', d.sales, 'minmax');})
+	   .attr({
+	   		x: function(d){return(d.month*3)-28; },
+	   		y: function(d){return h-d.sales; },
+  "font-size":"12px",
+"font-family":"sans-serif",
+       "fill":"#666666",
+"text-anchor":"start"
+	   });
+
+
+
+
+
+
+
+
+	</script>
+
+
+
+
+
+<!-- javascript -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

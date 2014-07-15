@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPivot</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="d3/d3.min.js" ></script>
+
+</head>
+
+<body> 
+	<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+	
+
+
+	
+
+	<h3>Linear Chart</h3>
+	<script>
+
+
+		//VARIABLES FOR OUR DATA ANALYSIS
+
+		var w = 400;
+		var h = 350;
+	
+		var monthlySales =[
+          {"month":10, "sales":100},
+          {"month":20, "sales":130},
+          {"month":30, "sales":250},
+          {"month":40, "sales":300},
+          {"month":50, "sales":265},
+          {"month":60, "sales":225},
+          {"month":70, "sales":180},
+          {"month":80, "sales":120},
+          {"month":90, "sales":145},
+          {"month":100, "sales":130},
+          
+        ];
+
+var lineFun =d3.svg.line()
+          .x(function(d) {return d.month*3; })
+          .y(function(d) {return h-d.sales; })
+          .interpolate("linear");
+          
+          
+var svg = d3.select("body").append("svg").attr({width:w, height:h});
+          
+var viz = svg.append("path")
+          .attr({
+          d: lineFun(monthlySales),
+          "stroke":"purple",
+          "stroke-width":2,
+          "fill":"none"
+          });
+
+
+
+
+
+	</script>
+
+  <h4>Links</h4>
+  <ul>
+    
+    
+    <li><a href="barchartswithlabels.html">Bar Chart</a></li>
+    <li><a href="linearchart.html">Liner Chart</a></li>
+    <li><a href="linearbasischart.html">Liner Basis Chart</a></li>
+    <li><a href="scatterplot.html">Scatter Plot</a></li>
+    <li><a href="readingfromcsv.html">Reading Data From CSV File</a></li>
+    <li><a href="readingfromcsv2.html">Reading Data From CSV File 2</a></li>
+    <li><a href="readingfromjson.html">Reading Data From Json File</a></li>
+    <li><a href="readingfromjsonByCategories.html">Reading Data From Json File By Categories</a></li>
+  </ul>
+
+	
+
+
+
+
+<!-- javascript -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

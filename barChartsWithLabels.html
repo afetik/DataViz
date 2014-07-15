@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPivot</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="d3/d3.min.js" ></script>
+
+</head>
+
+<body> 
+	<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+	
+
+
+	
+
+	<h3>Drawing with Data</h3>
+	<script>
+
+
+		//VARIABLES FOR OUR DATA ANALYSIS
+
+		var w = 500;
+		var h = 200;
+		var padding = 2;
+		var dataset =[5,10,15,20,25,11,25,22,18,7];
+		// var num = [1,2,3,4,5,6,7,8,9,10];
+		// var names =["a","b","c","d","e","f","g","h","i","j"];
+		// var alph = [a,b,c,d,e,f,g,h,i,j];
+
+		var svg = d3.select("body")
+					.append("svg")
+						.attr("width",w)
+						.attr("height",h)
+
+
+		function colourPicker(a){
+			if (a<=20){
+				return "#666666";
+			}else{
+				return "#FF0033";
+			}
+
+		}
+
+
+		//ADDING THE BAR
+
+		svg.selectAll("rect")
+		  	.data(dataset)
+		  	.enter()		 //Create the rectangles if they don't exist.
+		  	.append("rect")
+		  		.attr({x: function(d,i){return (i*(w/dataset.length));},  //mapping each rectangle at dataset index-value on x-axis
+		  			 
+		  		       y: function(d){return (h-(d*4));},  //setting starting point for y-axis(inverse to touch ceiling), using a scale of 4
+		  		   width: ((w/dataset.length)-padding), // setting equal width for dataset less padding
+		  		  height: function(d){return (d*4);}, // use dataset at height marking, using a scale of 4
+		  		    fill: function(d){return colourPicker(d);}
+
+		  				});
+
+
+
+
+		//ADD THE TEXT LABEL  		
+
+		svg.selectAll("text")
+			.data(dataset)
+			.enter()
+			.append("text")
+			.text(function(d){return d;})
+			.attr({
+
+				"text-anchor": "middle",
+
+				x: function(d, i){return(i*(w/dataset.length)+(w/dataset.length-padding)/2);},
+				y: function(d){return(h-(d*4)+20);},   // plus or minus(12(last figure)) to mark the extra increase or decrease in the starting point of label on the y-axis(+/- 0 is same position at bar height)
+	"font-family": "sans-sarif",
+	  "font-size": 25,
+	  	   "fill": "#ffffff"
+
+			});
+
+
+
+
+
+
+
+	</script>
+
+	
+
+
+
+
+<!-- javascript -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
